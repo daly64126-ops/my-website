@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>موقعي الشخصي - إبراهيم</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color" content="#1e3c72">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<link rel="manifest" href="manifest.json">
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    text-align: center;
+}
+
+/* Navbar */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.8);
+    padding: 15px;
+    z-index: 1000;
+}
+
+.navbar a {
+    color: white;
+    margin: 15px;
+    text-decoration: none;
+}
+
+/* Card */
+#card {
+    background: rgba(255,255,255,0.95);
+    width: 320px;
+    margin: auto;
+    margin-top: 140px;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    animation: fadeIn 1s ease-in-out;
+    transition: 0.3s;
+}
+
+#card:hover {
+    transform: scale(1.02);
+}
+
+/* Buttons */
+button {
+    display: block;
+    width: 80%;
+    margin: 10px auto;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+/* Dark Mode */
+.dark {
+    background: #111 !important;
+    color: white !important;
+}
+
+.dark #card {
+    background: rgba(30,30,30,0.95) !important;
+    color: white;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+body {
+    overscroll-behavior: none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+    <a href="#">الرئيسية</a>
+    <a href="#card">عنّي</a>
+    <a href="page2.html">الصفحة الثانية</a>
+    <a href="#" onclick="toggleDark()">الوضع الليلي 🌙</a>
+</div>
+
+<!-- Card -->
+<div id="card">
+
+<h1>مرحبا أنا إبراهيم 👋</h1>
+
+<img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085" style="width:150px; border-radius:10px;">
+
+<h3>عنّي 👨‍💻</h3>
+<p>أنا أتعلم البرمجة وأبني أول مواقعي خطوة خطوة</p>
+
+<p id="message"></p>
+
+<input type="text" id="nameInput" placeholder="اكتب اسمك" style="padding:8px; border-radius:8px; border:1px solid gray;">
+
+<button onclick="
+let name = document.getElementById('nameInput').value;
+localStorage.setItem('username', name);
+document.getElementById('message').innerHTML = 'أهلا ' + name + ' 👋';
+" style="background: purple; color: white;">
+حفظ الاسم
+</button>
+
+<button onclick="
+localStorage.removeItem('username');
+document.getElementById('message').innerHTML='';
+document.getElementById('nameInput').value='';
+" style="background: red; color: white;">
+إعادة تعيين
+</button>
+
+<button onclick="
+document.getElementById('message').innerHTML='ما شاء الله عليك 🔥';
+" style="background: darkblue; color: white;">
+بدّل الرسالة
+</button>
+
+<button onclick="
+let c = document.getElementById('card');
+if(c.style.backgroundColor == 'lightyellow'){
+    c.style.backgroundColor = 'lightblue';
+} else {
+    c.style.backgroundColor = 'lightyellow';
+}
+" style="background: orange;">
+غيّر لون الكرت
+</button>
+
+<button onclick="window.print()" style="background: black; color: white;">
+حفظ الصفحة 🖨️
+</button>
+
+<button onclick="window.location.href='mailto:youremail@gmail.com'" style="background: green; color: white;">
+تواصل معي 📩
+</button>
+
+</div>
+
+<script>
+function toggleDark(){
+    document.body.classList.toggle("dark");
+
+    if(document.body.classList.contains("dark")){
+        localStorage.setItem("darkMode","on");
+    } else {
+        localStorage.setItem("darkMode","off");
+    }
+}
+
+window.onload = function(){
+    let savedName = localStorage.getItem("username");
+    if(savedName){
+        document.getElementById("message").innerHTML =
+        "أهلا " + savedName + " 👋 (مرحبًا بعودتك)";
+    }
+
+    if(localStorage.getItem("darkMode") === "on"){
+        document.body.classList.add("dark");
+    }
+}
+</script>
+
+</body>
+</html>
